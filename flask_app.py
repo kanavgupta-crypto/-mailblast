@@ -244,10 +244,6 @@ def scheduler_loop():
 #  this keeps it permanently awake at zero extra cost.
 # ════════════════════════════════════════════════════
 
-@app.route("/ping")
-def ping():
-    """UptimeRobot health check — keeps app awake on Render free tier."""
-    return "OK", 200
 
 # ════════════════════════════════════════════════════
 #  ROUTES — Auth
