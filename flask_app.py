@@ -255,6 +255,7 @@ def ping():
 @app.route("/ping")
 def ping():
     return "OK", 200
+
 @app.route("/")
 def index():
     if not session.get("logged_in"):
