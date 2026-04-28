@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: mailblast
+    runtime: python
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn flask_app:app --workers 1 --threads 4 --timeout 120
+    envVars:
+      - key: SECRET_KEY
+        generateValue: true
+      - key: STORAGE_DIR
+        value: /tmp/mailblast
