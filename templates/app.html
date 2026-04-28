@@ -781,7 +781,7 @@
     </button>
     <div class="divider" style="margin:8px 0"></div>
     <div class="sidebar-label">Account</div>
-  <button class="nav-item" onclick="showPage('settings')">
+    <button class="nav-item" onclick="showPage('settings')">
       <div class="icon">⚙️</div>
       Settings
     </button>
@@ -1153,7 +1153,7 @@ function showPage(id) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   const navItems = document.querySelectorAll('.nav-item');
- navItems.forEach(n => { const oc = n.getAttribute('onclick'); if (oc && oc.includes(id)) n.classList.add('active'); });
+  navItems.forEach(n => { const oc = n.getAttribute('onclick'); if (oc && oc.includes(id)) n.classList.add('active'); });
   if (id === 'send') buildChecklist();
 }
 
@@ -1673,9 +1673,6 @@ function saveSettings() {
   })
   .catch(() => toast('Could not save settings', 'error'));
 };
-  // Save to localStorage would fail in Claude artifacts, so just confirm
-  toast('Settings saved ✓', 'success');
-}
 
 function testConnection() {
   const data = {
@@ -1696,7 +1693,23 @@ function testConnection() {
     else toast('❌ ' + d.error, 'error');
   })
   .catch(() => toast('Could not reach server', 'error'));
-  
+  return; // Skip old code
+
+  toast('Testing connection...', 'info');
+  fetch('/api/test', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      smtp_host: document.getElementById('smtpHost').value,
+      smtp_port: parseInt(document.getElementById('smtpPort').value),
+      smtp_user: document.getElementById('smtpUser').value,
+      smtp_pass: document.getElementById('smtpPass').value,
+    })
+  })
+  .then(r => r.json())
+  .then(d => toast(d.ok ? '✅ Connection successful!' : '❌ ' + d.error, d.ok ? 'success' : 'error'))
+  .catch(() => toast('❌ Could not connect. Is the server running?', 'error'));
+}
 
 // ══════════════════════════════════════════════════
 // UTILS
