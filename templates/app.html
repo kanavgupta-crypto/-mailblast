@@ -781,11 +781,11 @@
     </button>
     <div class="divider" style="margin:8px 0"></div>
     <div class="sidebar-label">Account</div>
-    <a href="/logout" class="nav-item" style="text-decoration:none;color:inherit;margin-top:auto">⬡ Logout</a>
-      <button class="nav-item" onclick="showPage('settings')">
+  <button class="nav-item" onclick="showPage('settings')">
       <div class="icon">⚙️</div>
       Settings
     </button>
+    <a href="/logout" class="nav-item" style="text-decoration:none;color:inherit;margin-top:auto">⬡ Logout</a>
   </nav>
 
   <!-- MAIN -->
@@ -1153,7 +1153,7 @@ function showPage(id) {
   document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
   document.getElementById('page-' + id).classList.add('active');
   const navItems = document.querySelectorAll('.nav-item');
-  navItems.forEach(n => { if (n.getAttribute('onclick').includes(id)) n.classList.add('active'); });
+ navItems.forEach(n => { const oc = n.getAttribute('onclick'); if (oc && oc.includes(id)) n.classList.add('active'); });
   if (id === 'send') buildChecklist();
 }
 
