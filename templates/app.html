@@ -1696,23 +1696,7 @@ function testConnection() {
     else toast('❌ ' + d.error, 'error');
   })
   .catch(() => toast('Could not reach server', 'error'));
-  return; // Skip old code
-
-  toast('Testing connection...', 'info');
-  fetch('/api/test', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      smtp_host: document.getElementById('smtpHost').value,
-      smtp_port: parseInt(document.getElementById('smtpPort').value),
-      smtp_user: document.getElementById('smtpUser').value,
-      smtp_pass: document.getElementById('smtpPass').value,
-    })
-  })
-  .then(r => r.json())
-  .then(d => toast(d.ok ? '✅ Connection successful!' : '❌ ' + d.error, d.ok ? 'success' : 'error'))
-  .catch(() => toast('❌ Could not connect. Is the server running?', 'error'));
-}
+  
 
 // ══════════════════════════════════════════════════
 // UTILS
